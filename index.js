@@ -8,8 +8,7 @@ import * as backend from './build/index.main.mjs';
 import { loadStdlib } from '@reach-sh/stdlib';
 const reach = loadStdlib(process.env);
 
-import {ALGO_MyAlgoConnect as MyAlgoConnect}
-    from '@reach-sh/stdlib';
+import {ALGO_MyAlgoConnect as MyAlgoConnect} from '@reach-sh/stdlib';
 reach.setWalletFallback(reach.walletFallback({
     providerEnv: 'TestNet',MyAlgoConnect}));
 
@@ -50,19 +49,19 @@ class App extends React.Component{
 
 class Player extends React.Component{
     random(){return reach.hasRandom.random();}
-    async getHand(){
+    async getFingers(){
         const hand = await new Promise(resolveHandP =>{
-            this.setState({view:'GetHand',playable: true,resolveHandP});
+            this.setState({view:'GetFingers',playable: true,resolveHandP});
         });
         this.setState({view:'WaitingForResults',hand});
-        return guessHandToInt[hand];
+        return handToInt[hand];
     }
-    async getGuessHand(){
-        const hand = await new Promise(resolveGuessP =>{
-            this.setState({view:'GetGuessHand',playable: true,resolveGuessP});
+    async getGuess(){
+        const guessHand = await new Promise(resolveGuessP =>{
+            this.setState({view:'GetGuess',playable: true,resolveGuessP});
         });
         this.setState({view:'WaitingForResults',guessHand});
-        return handToInt[guessHand];
+        return guessHandToInt[guessHand];
     }
     seeOutcome(i){this.setState({view:'Done',outcome:intToOutcome[i]});}
     informTimeout(){this.setState({view:'Timeout'});}
